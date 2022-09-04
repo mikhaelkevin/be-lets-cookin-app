@@ -73,7 +73,7 @@ Before going to the installation stage there are some software that must be inst
 
 ### Installation
 
-If you want to run this project locally, I recommend you to configure the <a href="#setup-env">.env</a> first before configuring this repo front-end.
+If you want to run this project locally, I recommend you to configure the <a href="#setup-env">.env</a> first.
 
 - Clone the repo
 
@@ -95,7 +95,7 @@ npm install
 
 - <a href="#setup-env">Setup .env</a>
 
-Before you start the backend, make sure check the application db backup and find a file named <b>lets_cookin.psql</b>. If you can't found any, you can make it by your own references to application <a href="#db-structure">DB Structure</a>.
+Before you start the backend, make sure check the application folder and find a file named <b>lets_cookin.psql</b>. If you can't found any, you can make it by your own references to application <a href="#db-structure">DB Structure</a>.
 
 Follow the other step bellow to continue settings up the application.
 
@@ -125,7 +125,7 @@ psql -U postgres -p 5432 -h localhost -d lets_cookin -f lets_cookin.psql
 - Import our [API Documentation](http://postman.org/) on Postman
 - After all the step is done you ready to go
 - Open the backend folder with your IDE
-- Open the IDE teriminal and run below command
+- Open the IDE teriminal and run command below
 
 ```
 nodemon
@@ -135,11 +135,11 @@ nodemon
 
 ### Setup .env example
 
-Rename file called .env.example to .env and change exampl value to your own configs.
+Rename file called .env.example to .env and change the value to your own configs.
 
 ```
 LOCAL_PORT=your local port
-ENV_MODE=development or production
+ENV_MODE=anything except production
 
 DB_USER=your database username
 DB_HOST=your database host
