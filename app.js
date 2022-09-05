@@ -1,6 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
-const xss = require('xss-clean');
+// const xss = require('xss-clean');
 const bodyParser = require('body-parser');
 
 const cors = require('./config/cors');
@@ -14,7 +14,11 @@ const port = process.env.PORT || process.env.LOCAL_PORT;
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(bodyParser.json());
 app.use(cors);
-app.use(xss);
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const authRoutes = require('./routes/authRoutes');
+
+app.use('/auth', authRoutes);
 
 app.use(errorHandler);
 
