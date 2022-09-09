@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "server",
+      "type": "shell",
+      "command": "nodemon",
+      "windows": {
+        "command": "nodemon"
+      },
+      "isBackground": true,
+      "presentation": {
+        "group": "dev-mode"
+      },
+      "runOptions": { "runOn": "folderOpen" }
+    },
+    {
+      "label": "database",
+      "type": "shell",
+      "command": "psql lets_cookin nocturndev",
+      "windows": {
+        "command": "psql lets_cookin nocturndev"
+      },
+      "isBackground": true,
+      "presentation": {
+        "group": "dev-mode"
+      },
+      "runOptions": { "runOn": "folderOpen" }
+    },
+  ]
+}
