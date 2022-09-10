@@ -27,7 +27,7 @@ const registerSchema = Joi.object({
     .valid(Joi.ref('password'))
     .required()
     .messages({
-      'any.only': 'password do not match'
+      'any.only': 'Password did not match'
     }),
 
   phoneNumber: Joi.string()
@@ -36,7 +36,7 @@ const registerSchema = Joi.object({
     .max(15)
     .allow(null, '')
     .messages({
-      'string.pattern.base': 'invalid phone number'
+      'string.pattern.base': 'Invalid phone number'
     })
 });
 

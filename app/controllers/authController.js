@@ -12,7 +12,7 @@ const register = async (req, res) => {
   userCredentials.password = bcrypt?.hashSync(password, salt);
   await registerModel(userCredentials);
 
-  res.status(200).send({ message: 'register success' });
+  res.status(200).send({ message: 'Register success' });
 };
 
 const login = async (req, res) => {
@@ -22,12 +22,12 @@ const login = async (req, res) => {
   const userCredentials = doLogin?.rows?.[0];
 
   const passwordIsMatch = bcrypt.compareSync(password, userCredentials?.password);
-  if (!passwordIsMatch) throw new ErrorResponse('incorrect email or password', 401);
+  if (!passwordIsMatch) throw new ErrorResponse('Incorrect email or password', 401);
 
   const { password: unusedVariable, ...tokenPayload } = userCredentials;
   const token = jwt?.sign(tokenPayload, process.env.PRIVATE_KEY, { expiresIn: '12h' });
 
-  res.status(200).send({ message: 'login success', token });
+  res.status(200).send({ message: 'Login success', token });
 };
 
 module.exports = { register, login };
