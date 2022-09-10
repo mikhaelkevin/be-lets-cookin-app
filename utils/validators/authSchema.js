@@ -34,6 +34,7 @@ const registerSchema = Joi.object({
     .pattern(/^[0-9]+$/)
     .min(6)
     .max(15)
+    .allow(null, '')
     .messages({
       'string.pattern.base': 'Invalid phone number'
     })
