@@ -1,37 +1,33 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const { registerValidator, loginValidator } = require('../middlewares/validator/authValidator');
-const { registerModel, loginModel } = require('../models/Auth');
-const regularTrim = require('../../utils/dataTrimmer');
 const ErrorResponse = require('../../utils/errorResponse');
 
+const { registerModel, loginModel } = require('../models/Auth');
+
 const register = async (req, res) => {
-  const registrationRequestData = regularTrim(req?.body);
-  const validatedData = registerValidator(registrationRequestData);
+  const { password, repeatPassword, ...userCredentials } = req?.body;
 
-  const salt = bcrypt?.genSaltSync(7);
-  validatedData.password = bcrypt?.hashSync(validatedData?.password, salt);
-
-  await registerModel({ ...validatedData });
+  const salt = bcrypt.genSaltSync(8);
+  userCredentials.password = bcrypt?.hashSync(password, salt);
+  await registerModel(userCredentials);
 
   res.status(200).send({ message: 'Register success' });
 };
 
 const login = async (req, res) => {
-  const loginRequestData = regularTrim(req?.body);
-  const validatedData = loginValidator(loginRequestData);
+  const { email, password } = req?.body;
 
-  const loginDataFetcher = await loginModel({ ...validatedData });
-  const loginData = loginDataFetcher?.rows?.[0];
+  const doLogin = await loginModel({ email });
+  const userCredentials = doLogin?.rows?.[0];
 
-  const passwordIsMatch = bcrypt.compareSync(validatedData.password, loginData.password);
-  if (!passwordIsMatch) throw new ErrorResponse("password isn't match");
+  const passwordIsMatch = bcrypt.compareSync(password, userCredentials?.password);
+  if (!passwordIsMatch) throw new ErrorResponse('Incorrect email or password', 401);
 
-  const { password, ...tokenPayload } = loginData;
-  const token = jwt.sign(tokenPayload, process.env.PRIVATE_KEY, { expiresIn: '24h' });
+  const { password: unusedVariable, ...tokenPayload } = userCredentials;
+  const token = jwt?.sign(tokenPayload, process.env.PRIVATE_KEY, { expiresIn: '12h' });
 
-  res.status(200).send({ token });
+  res.status(200).send({ message: 'Login success', token });
 };
 
 module.exports = { register, login };

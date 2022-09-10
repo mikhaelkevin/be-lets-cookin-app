@@ -25,7 +25,7 @@ const loginModel = (requestData) => {
     [requestData?.email],
     (error, result) => {
       if (error) return reject(error);
-      if (!result?.rowCount) reject(new ErrorResponse('email not found', 422));
+      if (!result?.rowCount) reject(new ErrorResponse('Incorrect email or password', 401));
       resolve(result);
     });
   });
