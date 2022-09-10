@@ -23,12 +23,12 @@ const registerSchema = Joi.object({
     .min(6)
     .required(),
 
-  repassword: Joi.ref('password'),
+  rePassword: Joi.ref('password'),
 
-  phonenumber: Joi.string()
-    .min(4)
+  phoneNumber: Joi.string()
     .pattern(/^[0-9]+$/)
-
+    .min(6)
+    .max(15)
 });
 
 module.exports = { loginSchema, registerSchema };
