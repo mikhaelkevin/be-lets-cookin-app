@@ -1,3 +1,11 @@
-const { loginSchema: login, registerSchema: register } = require('./authSchema');
+const {
+  loginSchema: login,
+  registerSchema: register
+} = require('./authSchema');
 
-module.exports = { login, register };
+const {
+  getRecipesSchema: getAllRecipe,
+  createRecipeSchema: createRecipe
+} = require('./recipeSchema');
+
+module.exports = { login, register, getAllRecipe, createRecipe };
